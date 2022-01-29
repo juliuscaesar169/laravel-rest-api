@@ -28,8 +28,8 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'dni' => 'required  ',
-            'email' => 'required|string',
+            'dni' => 'required|integer|unique:customers,dni',
+            'email' => 'required|string|unique:customers,email',
             'name' => 'required|string',
             'last_name' => 'required|string',
         ]);
@@ -40,25 +40,25 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $dni
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($dni)
     {
-        return Customer::find($id);
+        return Customer::find($dni);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  $dni
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $dni)
     {
         //doesn't need it?
-        $customer = Customer::find($id);
+        $customer = Customer::find($dni);
         $customer->update($request->all());
         return $customer;
     }
@@ -66,23 +66,23 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $dni
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($dni)
     {
-        return Customer::destroy($id);
+        return Customer::destroy($dni);
     }
 
     /**
-     * Search for a name / by name
+     * Search for a dni / by dni
      *
      * @param  int  $dni
      * @return \Illuminate\Http\Response
      */
-    public function searchByName($dni)
+    public function searchByDni($dni)
     {
-        return Customer::where('name', 'like', '%'.$dni.'%')->get();
+        return Customer::where('dni', 'like', '%'.$dni.'%')->get();
     }
 
     /**
@@ -105,8 +105,8 @@ class CustomerController extends Controller
     {
         $email = "tst@tst.com";
         $dni = 22448801;
-        $random_num = (rand(200,500));
-        $token = sha1($str + $email + $dni + $random_num);
-        return token;
+        $random_num = rand(200,500);
+        $custom_token = sha1($email.$dni.$random_num);
+        return $custom_token;
     }
 }

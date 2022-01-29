@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,20 +16,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/customers', [CustomerController::class, 'index']);
-Route::get('/customers/{id}', [CustomerController::class, 'show']);
-// Route::resource('products', CustomerController::class);
-Route::get('/search/d/{dni}', [CustomerController::class, 'searchByName']);
-Route::get('/search/e/{email}', [CustomerController::class, 'searchByEmail']);
+// Public routes
+Route::post('/register', [AuthController::class, 'register']);
+Route::get('/customers/tst', [CustomerController::class, 'test']);
 
+// Protected routes
+Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::get('/customers', [CustomerController::class, 'index']);
+    Route::get('/customers/{dni}', [CustomerController::class, 'show']);
+    Route::get('/search/d/{dni}', [CustomerController::class, 'searchByName']);//duplicated
+    Route::get('/search/e/{email}', [CustomerController::class, 'searchByEmail']);
 
-Route::post('/customers', [CustomerController::class, 'store']);
-
-//doesn't need it?
-Route::put('/customers/{id}', [CustomerController::class, 'update']);
-
-Route::delete('/customers', [CustomerController::class, 'destroy']);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::post('/customers', [CustomerController::class, 'store']);//duplicated
+    //doesn't need it?
+    Route::put('/customers/{id}', [CustomerController::class, 'update']);
+    Route::delete('/customers', [CustomerController::class, 'destroy']);
 });
+
