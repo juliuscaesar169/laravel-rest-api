@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
-
-
 class CustomerController extends Controller
 {
     /**
@@ -20,16 +18,18 @@ class CustomerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     *  Store a new customer in the database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        $date = now()->toDateString();
+
         $request->validate([
-            'dni' => 'required  ',
-            'email' => 'required|string',
+            'dni' => 'required|string|unique:cusomers,dni',
+            'email' => 'required|string|unique:customers,email',
             'name' => 'required|string',
             'last_name' => 'required|string',
         ]);
@@ -38,27 +38,27 @@ class CustomerController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display a specific customer by dni.
      *
-     * @param  int  $id
+     * @param  str  $dni
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($dni)
     {
-        return Customer::find($id);
+        return Customer::find($dni);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  str  $dni
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $dni)
     {
         //doesn't need it?
-        $customer = Customer::find($id);
+        $customer = Customer::find($dni);
         $customer->update($request->all());
         return $customer;
     }
@@ -66,18 +66,28 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  str  $dni
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($dni)
     {
-        return Customer::destroy($id);
+        $customer = Customer::find($dni);
+
+        if($customer->status !== 'A' || 'I'){
+            return response("Registro no existe");
+        }
+
+        $customer->softDeletes();
+        $customer->status = 'trash';
+        $customer->save();
+        
+        return response($customer);        
     }
 
     /**
      * Search for a name / by name
      *
-     * @param  int  $dni
+     * @param  str  $dni
      * @return \Illuminate\Http\Response
      */
     public function searchByName($dni)
@@ -95,6 +105,8 @@ class CustomerController extends Controller
     {
         return Customer::where('email', '=', $email)->get();
     }//probably w like method is better
+
+    
 
     /**
      * Test controller 
