@@ -21,7 +21,6 @@ Route::get('/customers/{dni}', [CustomerController::class, 'show']);
 Route::get('/search/d/{dni}', [CustomerController::class, 'searchByName']);
 Route::get('/search/e/{email}', [CustomerController::class, 'searchByEmail']);
 
-Route::get('/customers/tst', [CustomerController::class, 'test']);
 
 Route::post('/customers', [CustomerController::class, 'store']);
 
@@ -29,6 +28,9 @@ Route::post('/customers', [CustomerController::class, 'store']);
 Route::put('/customers/{dni}', [CustomerController::class, 'update']);
 
 Route::delete('/customers', [CustomerController::class, 'delete']);
+
+// test route
+Route::get('/customers/tst', [CustomerController::class, 'test']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

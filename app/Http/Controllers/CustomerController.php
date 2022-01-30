@@ -115,10 +115,17 @@ class CustomerController extends Controller
      */
     public function test()
     {
-        $email = "tst@tst.com";
-        $dni = 22448801;
-        $random_num = (rand(200,500));
-        $token = sha1($str + $email + $dni + $random_num);
-        return token;
+        // Token generator
+        // $email = "tst@tst.com";
+        // $dni = 22448801;
+        // $random_num = (rand(200,500));
+        // $token = sha1($str + $email + $dni + $random_num);
+        // return token;
+
+        // get coustomer w commune
+        $customer = Customer::with('communes')->first();
+
+        return $customer->toArray();
+
     }
 }
