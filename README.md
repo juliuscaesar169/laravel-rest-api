@@ -3,7 +3,7 @@
 API REST que brinda servicios de consulta, registro y eliminado lógico de clientes.
 
 
-## Feactures
+## Features
 - Registro de usuarios (clientes).
 - Buscar usuarios por DNI y/o email.
 - Eliminado lógico de usuarios.
@@ -103,6 +103,6 @@ Authorization: Accept
 ```
 
 
-### Proximas feactures y mejoras
+### Proximas features y mejoras
 - Manejo de errores.
 - Manejo de Logs de entrada y salida de información.
