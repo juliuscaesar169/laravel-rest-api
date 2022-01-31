@@ -18,6 +18,7 @@ class CustomerFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'name' => $this->faker->firstname(),
             'last_name' => $this->faker->lastname(),
+            'address' => null,
             'date_reg' => $this->faker->dateTimeBetween('-1 year'),
         ];
     }

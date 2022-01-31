@@ -28,7 +28,7 @@ class CustomerController extends Controller
         $date = now()->toDateString();
 
         $request->validate([
-            'dni' => 'required|string|unique:cusomers,dni',
+            'dni' => 'required|string|unique:customers,dni',
             'email' => 'required|string|unique:customers,email',
             'name' => 'required|string',
             'last_name' => 'required|string',
@@ -37,16 +37,51 @@ class CustomerController extends Controller
         return Customer::create($request->all());
     }
 
+    // /**
+    //  *  Store a new customer in the database.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function store(Request $request)
+    // {
+    //     $date = now()->toDateString();
+
+    //     $request->validate([
+    //         'dni' => 'required|string|unique:customers,dni',
+    //         'email' => 'required|string|unique:customers,email',
+    //         'name' => 'required|string',
+    //         'last_name' => 'required|string',
+    //     ]);
+
+    //     // $commune = Commune::where('customer_id', );
+
+    //     // $posts = Post::where('user_id', $user->id)->get();
+
+    //     // return Customer::create($request->all());
+    // }
+
+    // $comment = Comment::find(1);
+
+    // return $comment->post->title;
+
     /**
-     * Display a specific customer by dni.
+     * Display a specific customer by dni or email.
      *
-     * @param  str  $dni
+     * @param  str  $data
      * @return \Illuminate\Http\Response
      */
-    public function show($dni)
+    public function show($data)
     {
-        return Customer::find($dni);
+        if (str_contains($data, '@')) {
+            $customer = Customer::where('email', 'like', '%'.$data.'%')->get()[0];
+        } else {
+            $customer = Customer::where('dni', 'like', '%'.$data.'%')->get()[0];
+        }
+        return $customer['status'] !== ('trash') ? $customer : 'Registro no existe ';
     }
+
+
 
     /**
      * Update the specified resource in storage.

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/customers', [CustomerController::class, 'index']);
-Route::get('/customers/{dni}', [CustomerController::class, 'show']);
+Route::get('/customers/tst/{dni}', [CustomerController::class, 'show']);
 // Route::resource('products', CustomerController::class);
 Route::get('/search/d/{dni}', [CustomerController::class, 'searchByName']);
 Route::get('/search/e/{email}', [CustomerController::class, 'searchByEmail']);
