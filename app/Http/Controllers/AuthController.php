@@ -51,7 +51,8 @@ class AuthController extends Controller
             'commune' => $commune['description'],
             'region' => $region['description'],
             'token' => $token,
-            // 'customToken' => $customToken
+            // 'customToken' => $customToken,
+            'success' => true,
         ];
 
         return response($response, 201);
@@ -68,7 +69,8 @@ class AuthController extends Controller
 
         $response = [
             'customer' => $customer,
-            'token' => $token
+            'token' => $token,
+            'success' => true,
         ];
 
         return response($response);
@@ -78,7 +80,7 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
 
         return [
-            'message' => 'Logged out'
+            'message' => 'Success true'
         ];
     }
 }

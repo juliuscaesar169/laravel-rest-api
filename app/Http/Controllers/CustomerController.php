@@ -88,7 +88,7 @@ class CustomerController extends Controller
         } else {
             $customer = Customer::where('dni', 'like', '%'.$data.'%')->get()[0];
         }
-        return $customer['status'] !== ('trash') ? $customer : 'Registro no existe ';
+        return $customer['status'] !== ('trash') ? $customer : 'Registro no existe';
     }
 
     /**
