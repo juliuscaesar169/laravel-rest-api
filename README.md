@@ -11,7 +11,7 @@ API REST que brinda servicios de consulta, registro y eliminado lógico de clien
 - Protección para SQL injection.
 
 
-### Requerimientos mínimos
+## Requerimientos mínimos
 
 - PHP Version 7.3 en adelante.
 
