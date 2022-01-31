@@ -15,20 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/customers', [CustomerController::class, 'index']);
-Route::get('/customers/{dni}', [CustomerController::class, 'show']);
+Route::get('/customers', [CustomerController::class, 'index']);//testing route
+Route::get('/customers/{search}', [CustomerController::class, 'show']);
 // Route::resource('products', CustomerController::class);
-Route::get('/search/d/{dni}', [CustomerController::class, 'searchByName']);
-Route::get('/search/e/{email}', [CustomerController::class, 'searchByEmail']);
-
-Route::get('/customers/tst', [CustomerController::class, 'test']);
 
 Route::post('/customers', [CustomerController::class, 'store']);
 
-//doesn't need it?
-Route::put('/customers/{dni}', [CustomerController::class, 'update']);
+Route::delete('/customers/{dni}', [CustomerController::class, 'delete']);
 
-Route::delete('/customers', [CustomerController::class, 'delete']);
+// test route
+Route::get('/customers/tst', [CustomerController::class, 'test']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

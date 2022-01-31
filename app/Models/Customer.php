@@ -5,11 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
+use App\Models\Commune;
 
 class Customer extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
     /**
@@ -33,6 +40,22 @@ class Customer extends Model
      */
     protected $primaryKey = 'dni';
 
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'status' => 'A',
+    ];
+
+    // /**
+    //  * The attributes that should be visible in arrays.
+    //  *
+    //  * @var array
+    //  */
+    // protected $visible = ['first_name', 'last_name'];
+
     protected $fillable = [
         'dni',
         'id_reg',
@@ -40,13 +63,15 @@ class Customer extends Model
         'email',
         'name',
         'last_name',
+        'address',
         'date_reg'
     ];
 
-    // Relationship
-    // public function commune()
-    // {
-    //     return $this->belongsTo(Commune::class, 'foreign_key', 'id_com');
-    // }
+    // Relationships
+    public function commune()
+    {
+        return $this->belongsTo(Commune::class, 'foreign_key', 'id_com'); // to check
+    }
 
+    protected $table = 'customers';
 }

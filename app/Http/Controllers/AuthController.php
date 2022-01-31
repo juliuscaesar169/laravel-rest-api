@@ -11,7 +11,7 @@ class AuthController extends Controller
 {
     public function register(Request $request){
         $data = $request->validate([
-            'dni' => 'required|string|unique:cusomers,dni',
+            'dni' => 'required|string|unique:customers,dni',
             'email' => 'required|string|unique:customers,email',
             'name' => 'required|string',
             'last_name' => 'required|string',
