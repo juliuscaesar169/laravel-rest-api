@@ -14,10 +14,11 @@ class CreateRegionsTable extends Migration
     public function up()
     {
         Schema::create('regions', function (Blueprint $table) {
-            $table->id();// or $table->id('id_reg');
+            $table->id('id_reg');// or $table->id();
             $table->string('description', 90);
             $table->enum('status', ['A', 'I', 'trash']);
             $table->softDeletes($column = 'deleted_at', $precision = 0);
+            $table->engine = 'MyISAM';
         });
     }
 

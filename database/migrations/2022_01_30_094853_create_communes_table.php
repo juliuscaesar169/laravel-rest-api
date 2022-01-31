@@ -14,10 +14,14 @@ class CreateCommunesTable extends Migration
     public function up()
     {
         Schema::create('communes', function (Blueprint $table) {
-            $table->id();// or $table->id('id_com');
+            $table->primary(['id_com', 'id_reg']);
+            // $table->id();// or $table->id('id_com');
+            $table->integer('id_com');//check...should be increments
+            $table->integer('id_reg');
             $table->string('description', 90);
             $table->enum('status', ['A', 'I', 'trash']);
             $table->softDeletes($column = 'deleted_at', $precision = 0);
+            $table->engine = 'MyISAM';
         });
     }
 

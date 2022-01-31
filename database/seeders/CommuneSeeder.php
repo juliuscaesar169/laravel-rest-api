@@ -18,8 +18,6 @@ class CommuneSeeder extends Seeder
         Commune::factory()
             ->count(1)
             ->hasRegion(1)
-            ->create();
-            
-            
+            ->create();     
     }
 }
