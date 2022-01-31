@@ -10,6 +10,27 @@ use Illuminate\Http\Response;
 class AuthController extends Controller
 {
     public function register(Request $request){
+        $data = $request->validate([
+            'dni' => 'required|string|unique:customers,dni',
+            'email' => 'required|string|unique:customers,email',
+            'name' => 'required|string',
+            'last_name' => 'required|string',
+        ]);
 
+        $customer = User::create([
+            'dni' => $data['dni'],
+            'email' => $data['email'],
+            'name' => $data['password'],
+            'last_name' => $data['last_name']
+        ]);
+
+        // $token = $user->createToken('myapptoken')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            // 'token' => $token
+        ];
+
+        return response($response, 201);
     }
 }
