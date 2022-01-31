@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\Customer as Authenticatable;//simil User model
-use Illuminate\Contracts\Auth\MustVerifyEmail;//simil User model
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
