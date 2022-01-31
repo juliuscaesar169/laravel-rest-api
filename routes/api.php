@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,17 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/customers', [CustomerController::class, 'index']);//testing route
-Route::get('/customers/{search}', [CustomerController::class, 'show']);
-// Route::resource('products', CustomerController::class);
+// Public routes
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
 
-Route::post('/customers', [CustomerController::class, 'store']);
-
-Route::delete('/customers/{dni}', [CustomerController::class, 'delete']);
-
-// test route
-Route::get('/customers/tst', [CustomerController::class, 'test']);
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Protected routes
+Route::group(['middleware' => ['auth:sanctum']], function(){
+    Route::get('/customers/{search}', [CustomerController::class, 'show']);
+    // Route::resource('products', CustomerController::class);
+    Route::post('/customers', [CustomerController::class, 'store']); // snd way to register a customer via customer controller
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::delete('/customers/{dni}', [CustomerController::class, 'delete']);
+    // testing routes
+    Route::get('/customers', [CustomerController::class, 'index']);
+    Route::get('/customers/tst', [CustomerController::class, 'test']);
 });
+
