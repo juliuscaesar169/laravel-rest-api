@@ -15,7 +15,7 @@ class CommuneFactory extends Factory
     public function definition()
     {
         return [
-            'id_com' => 1,//check...shouldnt be necessary
+            'id_com' => 1,
             'id_reg' => 1,
             'description' => 'comuna std',
         ];

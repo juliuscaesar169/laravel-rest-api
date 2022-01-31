@@ -23,12 +23,8 @@ Route::post('/login', [AuthController::class, 'login']);
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('/customers/{search}', [CustomerController::class, 'show']);
-    // Route::resource('products', CustomerController::class);
-    Route::post('/customers', [CustomerController::class, 'store']); // snd way to register a customer via customer controller
+    Route::post('/customers', [CustomerController::class, 'store']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::delete('/customers/{dni}', [CustomerController::class, 'delete']);
-    // testing routes
-    Route::get('/customers', [CustomerController::class, 'index']);
-    Route::get('/customers/tst', [CustomerController::class, 'test']);
 });
 

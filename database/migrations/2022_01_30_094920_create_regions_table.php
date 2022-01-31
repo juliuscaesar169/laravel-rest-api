@@ -14,7 +14,7 @@ class CreateRegionsTable extends Migration
     public function up()
     {
         Schema::create('regions', function (Blueprint $table) {
-            $table->id('id_reg');// or $table->id();
+            $table->id('id_reg');
             $table->string('description', 90);
             $table->enum('status', ['A', 'I', 'trash']);
             $table->softDeletes($column = 'deleted_at', $precision = 0);

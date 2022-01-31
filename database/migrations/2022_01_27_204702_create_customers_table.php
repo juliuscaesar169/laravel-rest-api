@@ -25,8 +25,6 @@ class CreateCustomersTable extends Migration
             $table->date('date_reg');
             $table->enum('status', ['A', 'I', 'trash']);
             $table->softDeletes($column = 'deleted_at', $precision = 0);
-            // $table->foreign('com_id')->references('id')->on('communes');
-            // $table->foreignId('com_id')->constrained('communes'); // snd way . to check
             $table->engine = 'MyISAM';
         });
     }

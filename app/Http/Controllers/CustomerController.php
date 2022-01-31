@@ -10,16 +10,6 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     /**
-     * Display a listing of the resource. // testing controller
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return Customer::all();
-    }
-
-    /**
      *  Store a new customer in the database.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -42,8 +32,8 @@ class CustomerController extends Controller
         // region and commune -> get and validate
         $region = Region::where('id_reg', '=', $data['id_reg'])->first();
         $commune = Commune::where('id_com', '=', $data['id_com'])->first();
-        if (!($commune || $region)) return 'Invalid id';// to check
-        if ($commune['id_reg'] !== $region['id_reg']) return 'Invalid id';// to check
+        if (!($commune || $region)) return 'Invalid id';
+        if ($commune['id_reg'] !== $region['id_reg']) return 'Invalid id';
 
         if($request->address === 'null') $request['address'] = null;
 
@@ -58,18 +48,10 @@ class CustomerController extends Controller
             'date_reg' => $date
         ]);
 
-
-        $customer = $customer->makeVisible(['address']);
-
-        //$customToken = sha1($data['dni'].$data['email'].rand(200,500));        
-        // $token = $customer->createToken('myapptoken')->plainTextToken;
-
         $response = [
             'customer' => $customer,
             'commune' => $commune['description'],
             'region' => $region['description'],
-            // 'token' => $token,
-            // 'customToken' => $customToken
         ];
 
         return response($response, 201);
@@ -111,25 +93,4 @@ class CustomerController extends Controller
         
         return $customer;   
     }    
-
-    /**
-     * Test controller 
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function test()
-    {
-        // Token generator
-        // $email = "tst@tst.com";
-        // $dni = 22448801;
-        // $random_num = (rand(200,500));
-        // $token = sha1($str + $email + $dni + $random_num);
-        // return token;
-
-        // get coustomer w commune
-        $customer = Customer::with('communes')->first();
-
-        return $customer->toArray();
-
-    }
 }

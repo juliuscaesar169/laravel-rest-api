@@ -27,8 +27,8 @@ class AuthController extends Controller
         // region and commune -> get and validate
         $region = Region::where('id_reg', '=', $data['id_reg'])->first();
         $commune = Commune::where('id_com', '=', $data['id_com'])->first();
-        if (!($commune || $region)) return 'Invalid id';// to check
-        if ($commune['id_reg'] !== $region['id_reg']) return 'Invalid id';// to check
+        if (!($commune || $region)) return 'Invalid id';
+        if ($commune['id_reg'] !== $region['id_reg']) return 'Invalid id';
 
         if($request->address === 'null') $request['address'] = null;
 
