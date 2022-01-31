@@ -11,6 +11,11 @@ API REST que brinda servicios de consulta, registro y eliminado lógico de clien
 - Protección para SQL injection.
 
 
+### Requerimientos mínimos
+
+- PHP Version 7.3 en adelante.
+
+
 ## Inicialización del projecto
 
 1. Clonar repositorio
@@ -66,6 +71,12 @@ DB_PORT=3306
 ```
 
 
+## Uso de API
+
+Los servicios estan a disposición para los usuarios (customers) registrados, por lo que se aconseja iniciar por la ruta de register. Luego con su token de autenticación temporal podrá acceder a los demás servicios como lo es la busqueda de usuarios por dni o email.
+Nota: el seeder actual de la base de datos es sencillo con fin de uso operativo, actualmente cuenta con una comuna y región standard, por lo que de momento no dispondrá de abundante cantidad de datos predefinidos.
+
+
 ## Rutas
 
 ```
@@ -106,3 +117,4 @@ Authorization: Accept
 ### Proximas features y mejoras
 - Manejo de errores.
 - Manejo de Logs de entrada y salida de información.
+
