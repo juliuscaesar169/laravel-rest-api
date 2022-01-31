@@ -1,6 +1,6 @@
 # Laravel 8.0 REST API
 
-Api rest que brinda servicios de consulta, registro y eliminado lógico de clientes.
+API REST que brinda servicios de consulta, registro y eliminado lógico de clientes.
 
 
 ## Feactures
@@ -10,12 +10,8 @@ Api rest que brinda servicios de consulta, registro y eliminado lógico de clien
 - Servicio de autenticación mediante Sanctum.
 - Protección para SQL injection.
 
-### Proximas feactures y mejoras
-- Manejo de errores.
-- Manejo de Logs de entrada y salida de información
 
-
-## Inizialización del projecto
+## Inicialización del projecto
 
 1. Clonar repositorio
 
@@ -76,6 +72,7 @@ DB_PORT=3306
 # Public
 POST   /api/login
     @body:  email
+    --> Devuelve un token de autenticación, necesario para acceder a los demas servicios.
 
 POST   /api/register
     @body:  dni, id_reg, id_com, email, name, last_name, address(opcional)
@@ -85,7 +82,7 @@ POST   /api/register
 # Protected
 GET    /api/customers/:search
     @params:  'dni' o 'email'(incluir '@')
-    --> Consular por un customer mediante dni o email.
+    --> Consultar por un customer mediante dni o email.
 
 POST   /api/customers
     @body:  dni, id_reg, id_com, email, name, last_name, address(opcional)
@@ -95,6 +92,7 @@ DELETE   /api/customers/:dni
     --> Eliminar logicamente a un 'customer'.
 
 POST   /api/logout
+    --> Cierre de sesión y eliminación de token actual.
 ```
 
 
@@ -107,4 +105,4 @@ Authorization: Accept
 
 ### Proximas feactures y mejoras
 - Manejo de errores.
-- Manejo de Logs de entrada y salida de información
+- Manejo de Logs de entrada y salida de información.
