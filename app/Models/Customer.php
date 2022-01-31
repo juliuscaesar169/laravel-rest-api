@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Foundation\Auth\Customer as Authenticatable;//simil User model
+use Illuminate\Contracts\Auth\MustVerifyEmail;//simil User model
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,7 +13,7 @@ use App\Models\Commune;
 
 class Customer extends Model
 {
-    use HasFactory, SoftDeletes, Notifiable;
+    use HasFactory, SoftDeletes, Notifiable, HasApiTokens;
 
     /**
      * Indicates if the model should be timestamped.
@@ -56,6 +59,11 @@ class Customer extends Model
     //  */
     // protected $visible = ['first_name', 'last_name'];
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'dni',
         'id_reg',
@@ -72,6 +80,4 @@ class Customer extends Model
     {
         return $this->belongsTo(Commune::class, 'foreign_key', 'id_com'); // to check
     }
-
-    protected $table = 'customers';
 }
